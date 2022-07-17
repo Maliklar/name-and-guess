@@ -1,5 +1,5 @@
 import { getResults } from "./api.js";
-import { convertToPercentage, getGenderImage, validateInput } from "./methods.js";
+import { appendLocalStorage, convertToPercentage, getAsideRow, getCard, getGenderImage, getLocalStorage, updateAsideContent, validateInput } from "./methods.js";
 
 // DOM Elements
 const form = document.getElementById("form");
@@ -20,13 +20,18 @@ form.addEventListener('submit', async e => {
     }
 });
 
+
 async function populateDOM(result) {
-    console.log(result)
+    appendLocalStorage(result);
+
+
     age.innerText = result.age;
     genderPercentage.innerHTML = convertToPercentage(result.genderProbability);
     genderImg.setAttribute("src", getGenderImage(result.gender));
 
+
     result.countries.forEach(country => {
-        const card = getCountryCard(country);
+        const card = getCard(country);
+        cardsContainer.appendChild(card);
     });
 }

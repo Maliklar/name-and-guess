@@ -14,6 +14,7 @@ async function getResults(inputValue) {
         genderProbability: gender.probability,
         age: age.age,
         countries,
+        name: inputValue.charAt(0).toUpperCase() + inputValue.slice(1),
     }
 
 }
