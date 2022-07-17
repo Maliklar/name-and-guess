@@ -59,12 +59,11 @@ function initializeAsideContent() {
 }
 
 function getAsideRow(data) {
-    console.log(data);
-
     const row = document.createElement("div");
     const name = document.createElement("h2");
     const img = document.createElement("img");
     const age = document.createElement("p");
+    const date = document.createElement("span");
     row.setAttribute("class", "aside-row");
     img.setAttribute("src", getGenderImage(data.gender));
     img.setAttribute("alt", data.gender);
@@ -72,10 +71,12 @@ function getAsideRow(data) {
 
     name.innerText = data.name;
     age.innerText = data.age + " Years Old";
+    date.innerText = dateToAgoFormat(data.date);
 
     row.appendChild(name);
     row.appendChild(img);
     row.appendChild(age);
+    row.appendChild(date);
     return row;
 
 }
@@ -87,6 +88,27 @@ function updateAsideContent(result) {
     asideContent.appendChild(row);
 }
 
+function dateToAgoFormat(date) {
+    let current = new Date().getTime();
+    let diff = (current - date) / 1000;
+
+    if (diff < 60) {
+        return "just now";
+    } else if (diff < 3600) {
+        return Math.floor(diff / 60) + " minute ago";
+    } else if (diff >= 3600 && diff < 86400) {
+        return Math.floor(diff / 3600) + " hour ago";
+    } else if (diff >= 86400 && diff < 604800) {
+        return Math.floor(diff / 86400) + " day ago";
+    } else if (diff >= 604800 && diff < 2628000) {
+        return Math.floor(diff / 604800) + " week ago";
+    } else if (diff >= 2628000 && diff < 31540000) {
+        return Math.floor(diff / 2628000) + " month ago";
+    } else {
+        return " long time ago";
+    }
+
+}
 initializeAsideContent();
 
 export {

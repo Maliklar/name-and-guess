@@ -162,5 +162,13 @@ aside {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     padding: 10px;
+}
+
+.aside-row>span {
+    color: rgba(255, 255, 255, 0.616);
+    font-size: 0.7rem;
+    flex-basis: 100%;
+    text-align: end;
 }

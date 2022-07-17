@@ -15,6 +15,7 @@ async function getResults(inputValue) {
         age: age.age,
         countries,
         name: inputValue.charAt(0).toUpperCase() + inputValue.slice(1),
+        date: new Date().getTime(),
     }
 
 }
