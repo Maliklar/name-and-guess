@@ -21,26 +21,27 @@
 
     <main>
         <div class="main-content">
-            <form>
-                <input type="text" placeholder="Enter your name...">
+            <form id="form">
+                <input name="name" type="text" placeholder="Enter your name..." required>
                 <button type="submit"> Go </button>
+
             </form>
 
             <section class="gender-section">
                 <h2>Possible Gender</h2>
                 <div class="gender-img-container">
-                    <img src="./src/img/male.svg" height="100" alt="male">
-                    <p class="large-text">90%</p>
+                    <img id="gender-img" src height="100" alt="Gender Image">
+                    <p class="large-text" id="gender-percentage">90%</p>
                 </div>
             </section>
             <section class="age-section">
                 <h2>Possible Age</h2>
-                <p class="large-text">56</p>
+                <p class="large-text" id="age">56</p>
 
             </section>
             <section class="country-section">
                 <h2>Possible Nations</h2>
-                <div class="cards-container">
+                <div class="cards-container" id="cards-container">
                     <div class="card">
                         <img src="https://flagcdn.com/ax.svg" alt="">
                         <div class="divider"></div>
