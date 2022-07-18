@@ -76,6 +76,10 @@ button {
     align-items: center;
 }
 
+#gender-img {
+    visibility: hidden;
+}
+
 .gender-img-container {
     display: flex;
     align-items: center;

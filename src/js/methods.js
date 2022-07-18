@@ -12,10 +12,13 @@ function convertToPercentage(num) {
 }
 
 function getGenderImage(gender) {
-    if (gender === 'male') {
+    if (gender === 'male')
         return './src/img/male.svg';
-    }
-    return './src/img/female.svg';
+
+    else if (gender === "female")
+        return './src/img/female.svg';
+    else
+        return "./src/img/no_results.png";
 }
 
 function getCard(country) {
@@ -35,6 +38,21 @@ function getCard(country) {
     return card;
 }
 
+function getErrorMessage() {
+    const container = document.createElement("div");
+    const img = document.createElement("img");
+    img.setAttribute("src", "./src/img/no_results.png");
+    img.setAttribute("alt", "No results Icon");
+    img.setAttribute("height", "80");
+
+    const p = document.createElement("p");
+    p.innerText = "No Results";
+    p.style.fontSize = "1rem";
+    container.appendChild(img);
+    container.appendChild(p);
+    return container;
+}
+
 function appendLocalStorage(data) {
     let storage;
     if (localStorage.getItem("results") === null) {
@@ -48,12 +66,11 @@ function appendLocalStorage(data) {
 }
 
 function getLocalStorage() {
-    return JSON.parse(localStorage.getItem("results"));
+    return JSON.parse(localStorage.getItem("results")) || [];
 }
 
 function initializeAsideContent() {
-    const storage = getLocalStorage();
-    storage.forEach(element => {
+    getLocalStorage().forEach(element => {
         updateAsideContent(element);
     });
 }
@@ -70,7 +87,8 @@ function getAsideRow(data) {
     img.setAttribute("height", "30");
 
     name.innerText = data.name;
-    age.innerText = data.age + " Years Old";
+    if (data.age != null)
+        age.innerText = data.age + " Years Old";
     date.innerText = dateToAgoFormat(data.date);
 
     row.appendChild(name);
@@ -120,4 +138,5 @@ export {
     getLocalStorage,
     getAsideRow,
     updateAsideContent,
+    getErrorMessage,
 }

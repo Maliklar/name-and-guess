@@ -1,5 +1,5 @@
 import { getResults } from "./api.js";
-import { appendLocalStorage, convertToPercentage, getAsideRow, getCard, getGenderImage, getLocalStorage, updateAsideContent, validateInput } from "./methods.js";
+import { appendLocalStorage, convertToPercentage, getAsideRow, getCard, getErrorMessage, getGenderImage, getLocalStorage, updateAsideContent, validateInput } from "./methods.js";
 
 // DOM Elements
 const form = document.getElementById("form");
@@ -24,11 +24,21 @@ form.addEventListener('submit', async e => {
 async function populateDOM(result) {
     appendLocalStorage(result);
 
+    if (result.age == null)
+        age.appendChild(getErrorMessage());
+    else
+        age.innerText = result.age;
 
-    age.innerText = result.age;
-    genderPercentage.innerHTML = convertToPercentage(result.genderProbability);
-    genderImg.setAttribute("src", getGenderImage(result.gender));
+    if (result.gender == null) {
+        genderPercentage.appendChild(getErrorMessage());
+    } else {
+        genderPercentage.innerHTML = convertToPercentage(result.genderProbability);
+        genderImg.setAttribute("src", getGenderImage(result.gender));
+        genderImg.style.visibility = "visible";
+    }
 
+    if (result.countries.length == 0)
+        cardsContainer.appendChild(getErrorMessage())
 
     result.countries.forEach(country => {
         const card = getCard(country);

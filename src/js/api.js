@@ -7,6 +7,7 @@ const COUNTRY_API = "https://restcountries.com/v3.1/alpha?codes=";
 async function getResults(inputValue) {
     const gender = await getGender(inputValue);
     const age = await getAge(inputValue);
+
     const nationalities = await getNationalities(inputValue);
     const countries = await getFlags(nationalities);
     return {
@@ -33,6 +34,10 @@ async function getGender(inputValue) {
 async function getNationalities(inputValue) {
     return fetch(`${NATION_API}${inputValue}`).then(res => res.json())
         .then(data => {
+            // Case there are no results for the name
+            if (data.country.length == 0)
+                return null;
+
             let codes = "";
             data.country.forEach(country => {
                 codes += country.country_id + ",";
@@ -42,6 +47,9 @@ async function getNationalities(inputValue) {
 }
 
 async function getFlags(codes) {
+    if (codes == null)
+        return []
+
     let result = [];
     return fetch(`${COUNTRY_API}${codes}`)
         .then(res => res.json())
