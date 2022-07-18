@@ -14,7 +14,6 @@ function convertToPercentage(num) {
 function getGenderImage(gender) {
     if (gender === 'male')
         return './src/img/male.svg';
-
     else if (gender === "female")
         return './src/img/female.svg';
     else
@@ -44,7 +43,6 @@ function getErrorMessage() {
     img.setAttribute("src", "./src/img/no_results.png");
     img.setAttribute("alt", "No results Icon");
     img.setAttribute("height", "80");
-
     const p = document.createElement("p");
     p.innerText = "No Results";
     p.style.fontSize = "1rem";
@@ -53,14 +51,11 @@ function getErrorMessage() {
     return container;
 }
 
+
+
 function appendLocalStorage(data) {
-    let storage;
-    if (localStorage.getItem("results") === null) {
-        storage = [data];
-    } else {
-        storage = JSON.parse(localStorage.getItem("results"));
-        storage.push(data);
-    }
+    let storage = JSON.parse(localStorage.getItem("results")) || [];
+    storage.push(data);
     localStorage.setItem("results", JSON.stringify(storage));
     updateAsideContent(data);
 }
@@ -74,6 +69,8 @@ function initializeAsideContent() {
         updateAsideContent(element);
     });
 }
+
+
 
 function getAsideRow(data) {
     const row = document.createElement("div");
@@ -100,10 +97,11 @@ function getAsideRow(data) {
 }
 
 
+
 function updateAsideContent(result) {
     const asideContent = document.getElementById("aside-content");
     const row = getAsideRow(result);
-    asideContent.appendChild(row);
+    asideContent.prepend(row);
 }
 
 function dateToAgoFormat(date) {
@@ -127,6 +125,12 @@ function dateToAgoFormat(date) {
     }
 
 }
+
+function removeAllChildren(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
 initializeAsideContent();
 
 export {
@@ -139,4 +143,5 @@ export {
     getAsideRow,
     updateAsideContent,
     getErrorMessage,
+    removeAllChildren,
 }
