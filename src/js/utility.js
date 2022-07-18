@@ -3,8 +3,14 @@
 
 class Utility {
 
+
+
     // Load The previous results (Latest Guesses) when page is opend
     constructor() {
+        this.genderPercentage = document.getElementById("gender-percentage");
+        this.age = document.getElementById("age");
+        this.genderImg = document.getElementById("gender-img");
+        this.cardsContainer = document.getElementById("cards-container");
         this.getLocalStorage().forEach(element => {
             this.updateAsideContent(element);
         });
@@ -35,6 +41,7 @@ class Utility {
         const img = document.createElement("img");
         const divider = document.createElement("divider");
         const name = document.createElement("h3");
+        const probability = document.createElement("p");
 
         card.setAttribute("class", "card");
         img.setAttribute("src", country.flag);
@@ -42,9 +49,12 @@ class Utility {
         divider.setAttribute("class", "divider");
 
         name.innerText = country.name;
+        probability.innerText = this.convertToPercentage(country.probability);
+
         card.appendChild(img);
         card.appendChild(divider);
         card.appendChild(name);
+        card.appendChild(probability);
 
         return card;
     }
@@ -86,12 +96,13 @@ class Utility {
         const date = document.createElement("span");
 
         row.setAttribute("class", "aside-row");
+        row.setAttribute("data-name", data.name.toLowerCase());
         img.setAttribute("src", this.getGenderImage(data.gender));
         img.setAttribute("alt", data.gender);
         img.setAttribute("height", "30");
 
         name.innerText = data.name;
-        age.innerText = data.age + " Years Old";
+        age.innerText = (age.age) ? data.age + " Years Old" : "";
         date.innerText = this.dateToAgoFormat(data.date);
 
         row.appendChild(name);
@@ -99,7 +110,20 @@ class Utility {
         row.appendChild(age);
         row.appendChild(date);
 
+        row.addEventListener("click", () => {
+            this.populateDOM(this.getPreviousResults(row.dataset.name));
+        })
+
         return row;
+    }
+
+    getPreviousResults(name) {
+        const results = this.getLocalStorage();
+        return results.find((val) => {
+            if (val.name.toLowerCase() == name.toLowerCase()) {
+                return val;
+            }
+        })
     }
 
     updateAsideContent(result) {
@@ -134,6 +158,24 @@ class Utility {
     removeAllChildren(element) {
         while (element.firstChild)
             element.removeChild(element.firstChild);
+    }
+
+
+    async populateDOM(result) {
+        this.age.innerText = result.age;
+        this.genderPercentage.innerHTML = this.convertToPercentage(result.genderProbability);
+        this.genderImg.setAttribute("src", this.getGenderImage(result.gender));
+        this.genderImg.style.visibility = "visible";
+
+        this.removeAllChildren(this.cardsContainer);
+
+        if (result.countries.length == 0)
+            this.cardsContainer.appendChild(this.getErrorMessage());
+
+        result.countries.forEach(country => {
+            const card = this.getCard(country);
+            this.cardsContainer.appendChild(card);
+        });
     }
 }
 

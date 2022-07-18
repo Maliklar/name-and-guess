@@ -145,7 +145,7 @@ button {
     height: 1px;
     width: 90%;
     margin: 10px 0px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2)white, rgba(22, 16, 16, 0.2));
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), white, rgba(22, 16, 16, 0.2));
 }
 
 .large-text {
@@ -182,6 +182,7 @@ aside {
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 10px;
+    cursor: pointer;
 }
 
 .aside-row>span {
