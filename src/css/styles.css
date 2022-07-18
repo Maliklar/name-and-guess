@@ -167,7 +167,7 @@ aside {
 
 .aside-content {
     padding: 8px;
-    overflow: scroll;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     gap: 8px;
