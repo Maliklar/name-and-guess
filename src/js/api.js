@@ -7,7 +7,6 @@ const COUNTRY_API = "https://restcountries.com/v3.1/alpha?codes=";
 async function getResults(inputValue) {
     const gender = await getGender(inputValue);
     const age = await getAge(inputValue);
-
     const nationalities = await getNationalities(inputValue);
     const countries = await getFlags(nationalities);
     return {
@@ -18,7 +17,6 @@ async function getResults(inputValue) {
         name: inputValue.charAt(0).toUpperCase() + inputValue.slice(1),
         date: new Date().getTime(),
     }
-
 }
 
 async function getAge(inputValue) {
@@ -64,6 +62,7 @@ async function getFlags(codes) {
             return result;
         });
 }
+
 export {
     getResults
 }

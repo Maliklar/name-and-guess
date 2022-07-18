@@ -43,6 +43,7 @@ main {
 
 form {
     display: flex;
+    flex-wrap: wrap;
     grid-column: 1 / -1;
     position: relative;
 }
@@ -53,8 +54,17 @@ input {
     border-radius: 10px 0 0 10px;
     color: white;
     border: none;
-    width: 100%;
+    width: 80%;
     padding: 0 20px;
+}
+
+#error-msg {
+    display: none;
+    position: absolute;
+    font-size: 0.8rem;
+    color: yellow;
+    margin: 0px 20px;
+    bottom: -1rem;
 }
 
 input:focus {
