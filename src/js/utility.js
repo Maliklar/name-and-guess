@@ -102,7 +102,7 @@ class Utility {
         img.setAttribute("height", "30");
 
         name.innerText = data.name;
-        age.innerText = (age.age) ? data.age + " Years Old" : "";
+        age.innerText = (data.age) ? ("Age: " + data.age) : "";
         date.innerText = this.dateToAgoFormat(data.date);
 
         row.appendChild(name);

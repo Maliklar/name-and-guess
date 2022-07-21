@@ -9,7 +9,6 @@ async function getResults(inputValue) {
     const age = await getAge(inputValue);
     const countries = [];
 
-    // const nationalities = await getNationalities(inputValue);
     return getNationalities(inputValue)
         .then(result => {
             let promises = [];

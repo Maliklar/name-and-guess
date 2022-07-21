@@ -17,7 +17,6 @@ form.addEventListener('submit', async e => {
         // Check if the name exits in the localStorage first
         if (previous) {
             Utility.populateDOM(previous);
-
         } else {
             const result = await getResults(inputValue);
             Utility.populateDOM(result);

@@ -185,6 +185,11 @@ aside {
     cursor: pointer;
 }
 
+.aside-row:hover {
+    background: linear-gradient( 360deg, hsl(207, 26%, 17%), hsl(208, 20%, 23%));
+    transition: all 1s;
+}
+
 .aside-row>span {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.7rem;
